@@ -63,7 +63,7 @@ for(int k = 2; k<=N; k=k*2)
     for(int i = 0; i < N/k; i++)
     {
 
-        complex<double> w(1,0);
+        complex<double> w(1 ,0);
 
          for(int j = 0; j < k/2; j++)
          {
@@ -71,7 +71,52 @@ for(int k = 2; k<=N; k=k*2)
             t1[i*k+j] = t1[i*k+j] + w * t0[i*k+j+k/2];
             t1[i*k+j+k/2] = -w * t1[i*k+j+k/2] + t0[i*k+j];
 
-            w = w*W(N,N/k);
+            w = w/W(N,N/k);
+
+         }
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+}
+
+
+void reverse_fft(complex<double> *t0,complex<double> *t1,int N)
+{
+complex<double> pd(2,0);
+
+
+for(int k = N; k > 1; k=k/2)
+{
+
+
+
+     tab1istab2(t0,t1,N);
+
+    for(int i = 0; i < N/k; i++)
+    {
+
+        complex<double> w(1,0);
+
+
+        int j = 0;
+
+        t1[i*k+j] = (t1[i*k+j] + w * t0[i*k+j+k/2])/pd;
+        t1[i*k+j+k/2] = (-w * t1[i*k+j+k/2] + t0[i*k+j])/pd;
+
+         for(int j = 1; j < k/2; j++)
+         {
+            t1[i*k+j] = (t1[i*k+j] + t0[i*k+j+k/2])/pd;
+            t1[i*k+j+k/2] = (t1[i*k+j+k/2] + t0[i*k+j])/pd;
 
          }
 
@@ -83,6 +128,9 @@ for(int k = 2; k<=N; k=k*2)
 
 
 
+tab1istab2(t0,t1,N);
+
+for(int i = 0;i<N;i++) t1[i] = t0[bit_revers(i,N)];
 
 
 
@@ -91,12 +139,9 @@ for(int k = 2; k<=N; k=k*2)
 
 
 
-
-
-
 int main()
 {
-cout << fixed << setprecision(2);
+cout << fixed << setprecision(4);
   int N = 16;
 
    complex<double> n[N] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
@@ -107,7 +152,7 @@ cout << fixed << setprecision(2);
 
 
    fft(n,n_next,N);
-
+  reverse_fft(n,n_next,N);
 
 
 
@@ -123,3 +168,4 @@ cout << fixed << setprecision(2);
 
     return 0;
 }
+
