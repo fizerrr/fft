@@ -2,6 +2,8 @@
 #include <complex>
 #include <cmath>
 #include <iomanip>
+#include <fstream>
+
 
 
 
@@ -139,9 +141,15 @@ for(int i = 0;i<N;i++) t1[i] = t0[bit_revers(i,N)];
 
 
 
+
+
+
+
 int main()
 {
-cout << fixed << setprecision(4);
+
+
+cout << fixed << setprecision(2);
   int N = 16;
 
    complex<double> n[N] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
@@ -152,7 +160,8 @@ cout << fixed << setprecision(4);
 
 
    fft(n,n_next,N);
-  reverse_fft(n,n_next,N);
+      reverse_fft(n,n_next,N);
+
 
 
 
@@ -165,7 +174,9 @@ cout << fixed << setprecision(4);
 
 
 
+return 0;
 
-    return 0;
+
+
 }
 
